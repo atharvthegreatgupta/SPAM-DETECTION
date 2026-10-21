@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 function App() {
   const [emailText, setEmailText] = useState('')
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
+  const textareaRef = useRef(null)
+
+  // Automatically resize the textarea to fit its content
+  useEffect(() => {
+    if (textareaRef.current) {
+      // Reset height to auto to get the correct scrollHeight on backspace/delete
+      textareaRef.current.style.height = 'auto'
+      // Set the height to match the scrollHeight
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    }
+  }, [emailText])
 
   const analyzeEmail = async () => {
     if (!emailText.trim()) return
@@ -31,7 +42,7 @@ function App() {
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-4 font-sans text-zinc-200 selection:bg-orange-500/30">
       
       {/* Sleek Glassmorphic Card */}
-      <div className="w-full max-w-2xl bg-zinc-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-zinc-800 p-8 relative overflow-hidden">
+      <div className="w-full max-w-2xl bg-zinc-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-zinc-800 p-8 relative overflow-hidden my-8">
         
         {/* Decorative Background Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"></div>
@@ -46,14 +57,15 @@ function App() {
         </h1>
         
         <textarea 
-          className="relative z-10 w-full h-48 bg-zinc-950 border border-zinc-700 rounded-xl p-5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all resize-none shadow-inner" 
+          ref={textareaRef}
+          className="relative z-10 w-full min-h-[12rem] overflow-hidden bg-zinc-950 border border-zinc-700 rounded-xl p-5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors resize-none shadow-inner" 
           placeholder="e.g., URGENT! You've been selected to win a $500 gift card. Click here now..."
           value={emailText}
           onChange={(e) => setEmailText(e.target.value)}
         ></textarea>
 
         <button 
-          className="relative z-10 mt-6 w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-zinc-950 font-extrabold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-orange-900/20"
+          className="relative z-10 mt-6 w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-zinc-950 font-extrabold py-4 px-6 rounded-xl transition-transform transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-orange-900/20"
           onClick={analyzeEmail}
           disabled={loading || !emailText.trim()}
         >
