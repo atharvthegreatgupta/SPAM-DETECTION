@@ -28,25 +28,22 @@ function App() {
   }
 
   return (
-    // Changed slate to zinc for a warmer dark background, and selection color to amber
     <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center p-4 font-sans text-zinc-200 selection:bg-orange-500/30">
       
       {/* Sleek Glassmorphic Card */}
       <div className="w-full max-w-2xl bg-zinc-900/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-zinc-800 p-8 relative overflow-hidden">
         
-        {/* Decorative Background Glow - Switched to Yellow/Orange/Amber */}
+        {/* Decorative Background Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"></div>
         
         {/* Ambient background glow inside the card */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2 tracking-tight relative z-10">
+        {/* Centered Title */}
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-8 tracking-tight relative z-10 text-center">
           Email Checker
         </h1>
-        <p className="text-zinc-400 mb-8 text-lg relative z-10">
-          Paste an email below and let the machine learning model analyze it in real-time.
-        </p>
         
         <textarea 
           className="relative z-10 w-full h-48 bg-zinc-950 border border-zinc-700 rounded-xl p-5 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all resize-none shadow-inner" 
